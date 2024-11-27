@@ -1,0 +1,26 @@
+# Build Folders
+bin/
+obj/
+
+# User-Specific Files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and Temporary Files
+*.log
+*.vs/
+.vscode/
+.idea/
+
+# Publish Outputs
+wwwroot/
+dist/
+
+# Dependency Folders
+node_modules/
+
+# Environment Files
+.env
+.env.*

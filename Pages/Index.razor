@@ -1,0 +1,19 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+
+<PageTitle>Kam's Games</PageTitle>
+
+<div class="outer-container">
+    <h1>Game Library</h1>
+    <div class="library-box">
+        <div class="game-box" @onclick="NavToTic">
+            <p>Tic-Tac-Toe</p>
+        </div>
+    </div>
+</div>
+
+@code {
+private void NavToTic(){
+Navigation.NavigateTo("tic-tac-toe");
+}
+}

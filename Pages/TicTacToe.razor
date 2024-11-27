@@ -1,0 +1,135 @@
+@page "/tic-tac-toe"
+@* @rendermode InteractiveServer *@
+
+<PageTitle>Tic-Tac-Toe</PageTitle>
+
+<div class="outer-container">
+    @if (true){
+<div class="text-black title-text">
+        <p>Let's play tic-tac-toe!</p>
+    </div>
+    <div class="board-outline">
+       <div class="custom-grid">
+         @for (int i = 0; i < 9; i++){
+            var index = i;
+            <div class="m-0 p-0 block-height board-block" @onclick="() => PlayerClicked(index)">
+                @if(board[i] == 0){
+                    <div><p> </p></div>
+                }
+                else if (board[i] == 1){
+                    <div><p>O</p></div>
+                }
+                else if (board[i] == 2){
+                    <div><p>X</p></div>
+                }
+                </div>
+        }
+       </div>
+       <div>
+        @if(GAME_STATE == "X_WIN"){
+            <div>
+                <div>
+                    <p>X Wins</p>
+                </div>
+                <button @onclick="Restart">Restart</button>
+            </div>
+        }
+        else if (GAME_STATE == "O_WIN"){
+            <div>
+                <div>
+                    <p>O Wins</p>
+                </div>
+                <button @onclick="Restart">Restart</button>
+            </div>
+        }
+        else if (GAME_STATE == "DRAW"){
+            <div>
+                <div>
+                    <p>DRAW</p>
+                </div>
+                <button @onclick="Restart">Restart</button>
+            </div>
+        }
+       </div>
+    </div>
+    }
+</div>
+
+@code {
+    int[] board = {
+      0,0,0,
+      0,0,0,
+      0,0,0
+    };
+    Random rnd = new Random();
+    private string GAME_STATE = "PLAYING";
+
+    private void PlayerClicked(int blockNum) {
+    // Exit if the game has ended or the cell is already occupied
+    if (GAME_STATE != "PLAYING" || board[blockNum] != 0) {
+        return;
+    }
+
+    // Player's move
+    board[blockNum] = 2;
+    CheckWinner();
+    if (GAME_STATE != "PLAYING") return;
+
+    // Count remaining free spaces
+    int freeSpaceCount = board.Count(x => x == 0);
+
+    // If there are no more spaces after player's move and no winner, it's a draw
+    if (freeSpaceCount == 0) {
+        Draw();
+        return;
+    }
+
+    // CPU's move
+    int CPUPick = rnd.Next(0, 9);
+    while (board[CPUPick] != 0) {
+        CPUPick = rnd.Next(0, 9);
+    }
+    board[CPUPick] = 1;
+    CheckWinner();
+
+    // Check for draw after CPU's move if still no winner
+    if (GAME_STATE == "PLAYING" && board.All(x => x != 0)) {
+        Draw();
+    }
+}
+
+    private void CheckWinner() {
+     if (board[0] == 2 && board[1] == 2 && board[2] == 2 
+     || board[3] == 2 && board[4] == 2 && board[5] == 2
+     || board[6] == 2 && board[7] == 2 && board[8] == 2
+     || board[0] == 2 && board[3] == 2 && board[6] == 2
+     || board[1] == 2 && board[4] == 2 && board[7] == 2
+     || board[2] == 2 && board[5] == 2 && board[8] == 2
+     || board[0] == 2 && board[4] == 2 && board[8] == 2
+     || board[2] == 2 && board[4] == 2 && board[6] == 2){
+        GAME_STATE = "X_WIN";
+     }
+     else if (board[0] == 1 && board[1] == 1 && board[2] == 1 
+     || board[3] == 1 && board[4] == 1 && board[5] == 1
+     || board[6] == 1 && board[7] == 1 && board[8] == 1
+     || board[0] == 1 && board[3] == 1 && board[6] == 1
+     || board[1] == 1 && board[4] == 1 && board[7] == 1
+     || board[2] == 1 && board[5] == 1 && board[8] == 1
+     || board[0] == 1 && board[4] == 1 && board[8] == 1
+     || board[2] == 1 && board[4] == 1 && board[6] == 1
+     ){
+        GAME_STATE = "O_WIN";
+     }
+        
+    }
+
+    private void Draw(){
+        GAME_STATE = "DRAW";
+    }
+
+    private void Restart() {
+        board = new int[9];
+        GAME_STATE = "PLAYING";
+        StateHasChanged();
+    }
+} 

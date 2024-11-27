@@ -1,0 +1,43 @@
+.outer-container {
+  height: 100vh;
+}
+
+.title-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-text p {
+  font-size: 30px;
+}
+
+.custom-grid {
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  max-height: 60%;
+  height: 60%;
+  width: 50%;
+  border: 2px solid black;
+}
+
+.board-outline {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-color: green;
+  height: 100%;
+}
+
+.board-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  border: 2px solid black;
+}
+
+.block-height {
+  height: 100%;
+}
