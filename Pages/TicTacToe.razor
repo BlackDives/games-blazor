@@ -17,37 +17,37 @@
                     <div><p> </p></div>
                 }
                 else if (board[i] == 1){
-                    <div><p>O</p></div>
+                    <div><p class="o-block">O</p></div>
                 }
                 else if (board[i] == 2){
-                    <div><p>X</p></div>
+                    <div><p class="x-block">X</p></div>
                 }
                 </div>
         }
        </div>
        <div>
         @if(GAME_STATE == "X_WIN"){
-            <div>
+            <div class="finish-box">
                 <div>
-                    <p>X Wins</p>
+                   <p class="finish-title">X Wins</p>
                 </div>
-                <button @onclick="Restart">Restart</button>
+                <button class="restart-button" @onclick="Restart">Restart</button>
             </div>
         }
         else if (GAME_STATE == "O_WIN"){
-            <div>
+            <div class="finish-box">
                 <div>
-                    <p>O Wins</p>
+                    <p class="finish-title">O Wins</p>
                 </div>
-                <button @onclick="Restart">Restart</button>
+                <button class="restart-button" @onclick="Restart">Restart</button>
             </div>
         }
         else if (GAME_STATE == "DRAW"){
-            <div>
-                <div>
-                    <p>DRAW</p>
+            <div class="finish-box">
+                <div >
+                    <p class="finish-title">DRAW</p>
                 </div>
-                <button @onclick="Restart">Restart</button>
+                <button class="restart-button" @onclick="Restart">Restart</button>
             </div>
         }
        </div>
